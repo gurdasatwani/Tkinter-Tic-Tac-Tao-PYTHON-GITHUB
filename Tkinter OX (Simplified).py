@@ -161,6 +161,7 @@ def Turn(Button, Position):
     if " " not in values:
         l4.config(text="It's A Tie")
         RESTART.config(state="normal")
+        RESTART.place(x=420, y=1800)
 
     check_for_winner()
 
