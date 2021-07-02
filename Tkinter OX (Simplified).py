@@ -25,6 +25,25 @@ winner = None
 
 values = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 
+
+def Restart():
+    global winner, current_player, values
+    for i in buttons:
+        i.config(state="disable")
+    O.config(state="normal"), X.config(state="normal")
+    l4.config(text="")
+    winner = None
+    current_player = None
+    count = -1
+    for i in values:
+        count += 1
+        values[count] = " "
+    for i in buttons:
+        i.config(text="")
+
+    RESTART.config(state="disable")
+
+
 def passs():
     pass
 
@@ -119,9 +138,9 @@ def Turn(Button, Position):
 
             values[Position] = current_player
 
-            Button.config(command=passs,state='disable')
+            Button.config(command=passs, state="disable")
 
-        Button.config(text=current_player, fg="yellow",state='normal')
+        Button.config(text=current_player, fg="yellow", state="normal")
 
         current_player = "O"
 
@@ -131,9 +150,9 @@ def Turn(Button, Position):
 
             values[Position] = current_player
 
-            Button.config(command=passs,state='disable')
+            Button.config(command=passs, state="disable")
 
-        Button.config(text=current_player, fg="orange",state='normal')
+        Button.config(text=current_player, fg="orange", state="normal")
 
         current_player = "X"
 
@@ -141,30 +160,35 @@ def Turn(Button, Position):
 
     if " " not in values:
         l4.config(text="It's A Tie")
+        RESTART.config(state="normal")
 
     check_for_winner()
 
     if winner == "X" or winner == "O":
 
         l4.config(text=f"{winner} WON ")
-        
+
+        RESTART.config(state="normal")
+
         for i in buttons:
-        	i.config(command=passs)
+            i.config(command=passs)
+
+        RESTART.place(x=420, y=1800)
 
 
 def set_current_player(Player):
 
     global current_player
-    
+
     for i in buttons:
-        	i.config(state="normal")
-        	
-    O.destroy(), X.destroy()
+        i.config(state="normal")
+
+    O.config(state="disable"), X.config(state="disable")
 
     current_player = Player
 
     l4.config(text=f"{current_player}'s Turn")
-    
+
     b.config(command=lambda: Turn(b, 0)), b1.config(
         command=lambda: Turn(b1, 1)
     ), b2.config(command=lambda: Turn(b2, 2)), b3.config(
@@ -180,9 +204,6 @@ def set_current_player(Player):
     ), b8.config(
         command=lambda: Turn(b8, 8)
     )
-
-
-
 
 
 O = Button(
@@ -214,6 +235,15 @@ EXIT = Button(
     font=("Helvetica", 5, "bold"),
     bd=10,
     command=root.destroy,
+)
+RESTART = Button(
+    root,
+    text="RESTART",
+    bg="black",
+    fg="white",
+    font=("Helvetica", 5, "bold"),
+    bd=10,
+    command=Restart,
 )
 
 
@@ -312,7 +342,7 @@ l1 = Label(
 
 l4 = Label(root, fg="white", bg="black", font=("Helvetica", 15, "bold"))
 
-buttons=[b,b1,b2,b3,b4,b5,b6,b7,b8]
+buttons = [b, b1, b2, b3, b4, b5, b6, b7, b8]
 
 
 O.place(x=645, y=1640)
