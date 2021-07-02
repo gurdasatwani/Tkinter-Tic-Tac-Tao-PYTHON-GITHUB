@@ -1,27 +1,13 @@
-# ------------------MODULES------------------------
-
 from tkinter import Tk, Label, Button
-
-# -----------------------------------------------------
 
 root = Tk()
 
 
 root.config(bg="black")
 
-# ----------------------BASE2------------------‐-----
-
-# 										(DONE)
-
-# 1). CURRENT PLAYER   = NONE
-
 current_player = None
 
-# 2). WINNER OR TIE 	   = NONE
-
 winner = None
-
-# -----------------------------------------------------
 
 values = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 
@@ -31,7 +17,9 @@ def Restart():
     for i in buttons:
         i.config(state="disable")
     O.config(state="normal"), X.config(state="normal")
-    l4.config(text="")
+    l4.config(text=""), l5.config(text="", width=0, bg="black"), l6.config(
+        text="", bg="black", width=0, height=0
+    )
     winner = None
     current_player = None
     count = -1
@@ -58,15 +46,25 @@ def check_rows():
 
     if row1:
 
+        l5.place(x=50, y=630)
+
         return values[0]
 
     elif row2:
+
+        l5.place(x=50, y=950)
 
         return values[3]
 
     elif row3:
 
+        l5.place(x=50, y=1270)
+
         return values[6]
+
+    #    l5.config(text='_',width=320,bg='white')
+
+    return
 
 
 def check_columns():
@@ -79,13 +77,19 @@ def check_columns():
 
     if column1:
 
+        l6.place(x=175, y=535)
+
         return values[0]
 
     elif column2:
 
+        l6.place(x=535, y=535)
+
         return values[1]
 
     elif column3:
+
+        l6.place(x=885, y=535)
 
         return values[2]
 
@@ -117,9 +121,13 @@ def check_for_winner():
 
     if row_winner:
 
+        l5.config(text="_", width=320, bg="white")
+
         winner = row_winner
 
     elif column_winner:
+
+        l6.config(text="|", bg="white", width=3, height=120)
 
         winner = column_winner
 
@@ -342,6 +350,11 @@ l1 = Label(
 
 
 l4 = Label(root, fg="white", bg="black", font=("Helvetica", 15, "bold"))
+
+l5 = Label(root, font=("Helvetica", 1, "bold"))
+
+l6 = Label(root, font=("Helvetica", 1, "bold"))
+
 
 buttons = [b, b1, b2, b3, b4, b5, b6, b7, b8]
 
