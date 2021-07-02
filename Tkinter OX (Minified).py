@@ -1,101 +1,104 @@
-s='|'
-r='_'
-f=None
-b='O'
-a='X'
-N='normal'
-J='white'
+from tkinter import Tk,Label as M,Button as J
+k='|'
+j='_'
+h=None
+d='O'
+c='X'
+O='normal'
+I='white'
 H='disable'
-G='black'
+F='black'
 E='bold'
 D='Helvetica'
 C=' '
-from tkinter import Tk,Label as O,Button as I
 B=Tk()
-B.config(bg=G)
-F=f
-K=f
+B.config(bg=F)
+G=h
+K=h
 A=[C,C,C,C,C,C,C,C,C]
-def h():
-	global K,F,A
-	for B in Z:B.config(state=H)
-	d.config(state=N),e.config(state=N);M.config(text='');K=f;F=f;D=-1
-	for B in A:D+=1;A[D]=C
-	for B in Z:B.config(text='')
+def l():
+	D='';global K,G,A
+	for B in b:B.config(state=H)
+	f.config(state=O),g.config(state=O);N.config(text=D),Q.config(text=D,width=0,bg=F),R.config(text=D,bg=F,width=0,height=0);K=h;G=h;E=-1
+	for B in A:E+=1;A[E]=C
+	for B in b:B.config(text=D)
 	P.config(state=H)
-def c():0
-def i():
+def e():pass
+def m():
 	B=A[0]==A[1]==A[2]!=C;D=A[3]==A[4]==A[5]!=C;E=A[6]==A[7]==A[8]!=C
-	if B:return A[0]
-	elif D:return A[3]
-	elif E:return A[6]
-def j():
+	if B:Q.place(x=50,y=630);return A[0]
+	elif D:Q.place(x=50,y=950);return A[3]
+	elif E:Q.place(x=50,y=1270);return A[6]
+	return
+def n():
 	B=A[0]==A[3]==A[6]!=C;D=A[1]==A[4]==A[7]!=C;E=A[2]==A[5]==A[8]!=C
-	if B:return A[0]
-	elif D:return A[1]
-	elif E:return A[2]
-def k():
+	if B:R.place(x=175,y=535);return A[0]
+	elif D:R.place(x=535,y=535);return A[1]
+	elif E:R.place(x=885,y=535);return A[2]
+def o():
 	B=A[0]==A[4]==A[8]!=C;D=A[2]==A[4]==A[6]!=C
 	if B:return A[0]
 	elif D:return A[2]
-def l():
-	global K;A=i();B=j();C=k()
-	if A:K=A
-	elif B:K=B
+def p():
+	global K;A=m();B=n();C=o()
+	if A:Q.config(text=j,width=320,bg=I);K=A
+	elif B:R.config(text=k,bg=I,width=3,height=120);K=B
 	elif C:K=C
 def L(Button,Position):
-	D=Position;B=Button;global F
-	if F==a:
-		if A[D]==C:A[D]=F;B.config(command=c,state=H)
-		B.config(text=F,fg='yellow',state=N);F=b
-	elif F==b:
-		if A[D]==C:A[D]=F;B.config(command=c,state=H)
-		B.config(text=F,fg='orange',state=N);F=a
-	M.config(text=f"{F}'s Turn")
-	if C not in A:M.config(text="It's A Tie");P.config(state=N);P.place(x=420,y=1800)
-	l()
-	if K==a or K==b:
-		M.config(text=f"{K} WON ");P.config(state=N)
-		for E in Z:E.config(command=c)
+	D=Position;B=Button;global G
+	if G==c:
+		if A[D]==C:A[D]=G;B.config(command=e,state=H)
+		B.config(text=G,fg='yellow',state=O);G=d
+	elif G==d:
+		if A[D]==C:A[D]=G;B.config(command=e,state=H)
+		B.config(text=G,fg='orange',state=O);G=c
+	N.config(text=f"{G}'s Turn")
+	if C not in A:N.config(text="It's A Tie");P.config(state=O);P.place(x=420,y=1800)
+	p()
+	if K==c or K==d:
+		N.config(text=f"{K} WON ");P.config(state=O)
+		for E in b:E.config(command=e)
 		P.place(x=420,y=1800)
-def g(Player):
-	global F
-	for A in Z:A.config(state=N)
-	d.config(state=H),e.config(state=H);F=Player;M.config(text=f"{F}'s Turn");Q.config(command=lambda:L(Q,0)),R.config(command=lambda:L(R,1)),S.config(command=lambda:L(S,2)),T.config(command=lambda:L(T,3)),U.config(command=lambda:L(U,4)),V.config(command=lambda:L(V,5)),W.config(command=lambda:L(W,6)),X.config(command=lambda:L(X,7)),Y.config(command=lambda:L(Y,8))
-d=I(B,text=b,bg=G,fg=J,font=(D,9,E),bd=10,command=lambda:g(b))
-e=I(B,text=a,bg=G,fg=J,font=(D,9,E),bd=10,command=lambda:g(a))
-m=I(B,text='EXIT',bg=G,fg=J,font=(D,5,E),bd=10,command=B.destroy)
-P=I(B,text='RESTART',bg=G,fg=J,font=(D,5,E),bd=10,command=h)
-Q=I(B,bg=G,width=2,font=(D,40,E),state=H)
-R=I(B,bg=G,width=2,font=(D,40,E),state=H)
-S=I(B,bg=G,width=2,font=(D,40,E),state=H)
-T=I(B,bg=G,width=2,font=(D,40,E),state=H)
-U=I(B,bg=G,width=2,font=(D,40,E),state=H)
-V=I(B,bg=G,width=2,font=(D,40,E),state=H)
-W=I(B,bg=G,width=2,font=(D,40,E),state=H)
-X=I(B,bg=G,width=2,font=(D,40,E),state=H)
-Y=I(B,bg=G,width=2,font=(D,40,E),state=H)
-n=O(B,text=r,fg=J,bg=J,font=(D,1,E),width=355)
-o=O(B,text=r,fg=J,bg=J,font=(D,1,E),width=355)
-p=O(B,text=s,fg=J,bg=J,font=(D,1,E),height=134)
-q=O(B,text=s,fg=J,bg=J,font=(D,1,E),height=134)
-M=O(B,fg=J,bg=G,font=(D,15,E))
-Z=[Q,R,S,T,U,V,W,X,Y]
-d.place(x=645,y=1640)
-e.place(x=278,y=1640)
-m.place(x=450,y=1500)
-Q.place(y=490)
-R.place(x=360,y=490)
-S.place(x=710,y=490)
-T.place(y=810)
-U.place(x=360,y=810)
-V.place(x=710,y=810)
-W.place(y=1130)
-X.place(x=360,y=1130)
-Y.place(x=710,y=1130)
-p.place(x=355,y=490)
-q.place(x=710,y=490)
-n.place(y=795)
-o.place(y=1115)
-M.place(x=370,y=200)
+def i(Player):
+	global G
+	for A in b:A.config(state=O)
+	f.config(state=H),g.config(state=H);G=Player;N.config(text=f"{G}'s Turn");S.config(command=lambda:L(S,0)),T.config(command=lambda:L(T,1)),U.config(command=lambda:L(U,2)),V.config(command=lambda:L(V,3)),W.config(command=lambda:L(W,4)),X.config(command=lambda:L(X,5)),Y.config(command=lambda:L(Y,6)),Z.config(command=lambda:L(Z,7)),a.config(command=lambda:L(a,8))
+f=J(B,text=d,bg=F,fg=I,font=(D,9,E),bd=10,command=lambda:i(d))
+g=J(B,text=c,bg=F,fg=I,font=(D,9,E),bd=10,command=lambda:i(c))
+q=J(B,text='EXIT',bg=F,fg=I,font=(D,5,E),bd=10,command=B.destroy)
+P=J(B,text='RESTART',bg=F,fg=I,font=(D,5,E),bd=10,command=l)
+S=J(B,bg=F,width=2,font=(D,40,E),state=H)
+T=J(B,bg=F,width=2,font=(D,40,E),state=H)
+U=J(B,bg=F,width=2,font=(D,40,E),state=H)
+V=J(B,bg=F,width=2,font=(D,40,E),state=H)
+W=J(B,bg=F,width=2,font=(D,40,E),state=H)
+X=J(B,bg=F,width=2,font=(D,40,E),state=H)
+Y=J(B,bg=F,width=2,font=(D,40,E),state=H)
+Z=J(B,bg=F,width=2,font=(D,40,E),state=H)
+a=J(B,bg=F,width=2,font=(D,40,E),state=H)
+r=M(B,text=j,fg=I,bg=I,font=(D,1,E),width=355)
+s=M(B,text=j,fg=I,bg=I,font=(D,1,E),width=355)
+t=M(B,text=k,fg=I,bg=I,font=(D,1,E),height=134)
+u=M(B,text=k,fg=I,bg=I,font=(D,1,E),height=134)
+N=M(B,fg=I,bg=F,font=(D,15,E))
+Q=M(B,font=(D,1,E))
+R=M(B,font=(D,1,E))
+b=[S,T,U,V,W,X,Y,Z,a]
+f.place(x=645,y=1640)
+g.place(x=278,y=1640)
+q.place(x=450,y=1500)
+S.place(y=490)
+T.place(x=360,y=490)
+U.place(x=710,y=490)
+V.place(y=810)
+W.place(x=360,y=810)
+X.place(x=710,y=810)
+Y.place(y=1130)
+Z.place(x=360,y=1130)
+a.place(x=710,y=1130)
+t.place(x=355,y=490)
+u.place(x=710,y=490)
+r.place(y=795)
+s.place(y=1115)
+N.place(x=370,y=200)
 B.mainloop()
