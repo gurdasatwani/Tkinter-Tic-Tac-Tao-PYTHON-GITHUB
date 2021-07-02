@@ -1,4 +1,3 @@
-from tkinter import Tk,Label as O,Button as I
 s='|'
 r='_'
 f=None
@@ -11,6 +10,7 @@ G='black'
 E='bold'
 D='Helvetica'
 C=' '
+from tkinter import Tk,Label as O,Button as I
 B=Tk()
 B.config(bg=G)
 F=f
@@ -23,7 +23,7 @@ def h():
 	for B in A:D+=1;A[D]=C
 	for B in Z:B.config(text='')
 	P.config(state=H)
-def c():pass
+def c():0
 def i():
 	B=A[0]==A[1]==A[2]!=C;D=A[3]==A[4]==A[5]!=C;E=A[6]==A[7]==A[8]!=C
 	if B:return A[0]
@@ -52,7 +52,7 @@ def L(Button,Position):
 		if A[D]==C:A[D]=F;B.config(command=c,state=H)
 		B.config(text=F,fg='orange',state=N);F=a
 	M.config(text=f"{F}'s Turn")
-	if C not in A:M.config(text="It's A Tie");P.config(state=N)
+	if C not in A:M.config(text="It's A Tie");P.config(state=N);P.place(x=420,y=1800)
 	l()
 	if K==a or K==b:
 		M.config(text=f"{K} WON ");P.config(state=N)
