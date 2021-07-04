@@ -72,6 +72,7 @@ def Rematch():
         i.config(text="")
 
     REMATCH.config(state="disable")
+    RESTART.config(state="disable")
 
 
 def Restart():
