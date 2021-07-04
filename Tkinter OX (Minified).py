@@ -29,7 +29,7 @@ def v():
 	M.config(text=T),U.config(text=T,width=0,bg=C),V.config(text=T,bg=C,width=0,height=0),r.config(text=f"TOTAL : {R}");J=k;m(G);B=-1
 	for E in A:B+=1;A[B]=D
 	for E in Z:E.config(text=T)
-	Y.config(state=H)
+	Y.config(state=H);a.config(state=H)
 def w():
 	global J,G,A,P,Q,R,S;R=0;S=0;s.config(text=f"TIE : {S}");P=0;p.config(text=f"X : {P}");Q=0;q.config(text=f"O : {Q}")
 	for B in Z:B.config(state=H)
