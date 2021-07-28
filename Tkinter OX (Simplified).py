@@ -20,6 +20,14 @@ Tie = 0
 
 p = ["X", "O"]
 
+ln = [f"TOTAL : {Total}", f"TIE : {Tie}", f"X : {Xscore}", f"O : {Oscore}"]
+
+label = []
+
+button = []
+
+x, y = -1, -1
+
 
 def Rematch():
 
@@ -37,23 +45,27 @@ def Rematch():
 
         Tie += 1
 
-        l6.config(text=f"TIE : {Tie}")
+        label[1].config(text=f"TIE : {Tie}")
 
     if winner == "X":
 
         Xscore += 1
 
-        l3.config(text=f"X : {Xscore}")
+        label[2].config(text=f"X : {Xscore}")
 
     elif winner == "O":
 
         Oscore += 1
 
-        l4.config(text=f"O : {Oscore}")
+        label[3].config(text=f"O : {Oscore}")
 
-    l.config(text=""), l1.config(text="", width=0, bg="black"), l2.config(
-        text="", bg="black", width=0, height=0
-    ), l5.config(text=f"TOTAL : {Total}")
+    for i in range(4, 6):
+        
+        label[i].config(text="", bg="black", width=0, height=0)
+
+    l.config(text="")
+    
+    label[0].config(text=f"TOTAL : {Total}")
 
     winner = None
 
@@ -67,12 +79,12 @@ def Rematch():
 
         values[count] = " "
 
-    for i in buttons:
+    for i in range(9):
 
-        i.config(text="")
+        button[i].config(text="")
 
-    REMATCH.config(state="disable")
-    RESTART.config(state="disable")
+    button[10].config(state="disable")
+    button[11].config(state="disable")
 
 
 def Restart():
@@ -83,25 +95,27 @@ def Restart():
 
     Tie = 0
 
-    l6.config(text=f"TIE : {Tie}")
-
     Xscore = 0
-
-    l3.config(text=f"X : {Xscore}")
 
     Oscore = 0
 
-    l4.config(text=f"O : {Oscore}")
+    for i in range(4):
+        
+        label[i].config(text=ln[i])
 
-    for i in buttons:
+    for i in range(9):
 
-        i.config(state="disable")
+        button[i].config(text="", state="disable")
 
-    O.config(state="normal"), X.config(state="normal"), l.config(text=""), l1.config(
-        text="", width=0, bg="black"
-    ), l2.config(text="", bg="black", width=0, height=0), l5.config(
-        text=f"TOTAL : {Total}"
-    )
+    for i in range(12, 14):
+        
+        button[i].config(state="normal")
+
+    for i in range(4, 6):
+        
+        label[i].config(text="", bg="black", width=0, height=0)
+        
+    l.config(text="")
 
     winner = None
 
@@ -115,16 +129,8 @@ def Restart():
 
         values[count] = " "
 
-    for i in buttons:
-
-        i.config(text="")
-
-    RESTART.config(state="disable")
-    REMATCH.config(state="disable")
-
-
-def passs():
-    pass
+    button[10].config(state="disable")
+    button[11].config(state="disable")
 
 
 def check_rows():
@@ -137,19 +143,19 @@ def check_rows():
 
     if row1:
 
-        l1.grid(row=3, sticky="s", columnspan=3, rowspan=2, pady=140)
+        label[4].grid(row=3, sticky="s", columnspan=3, rowspan=2, pady=140)
 
         return values[0]
 
     elif row2:
 
-        l1.grid(row=3, sticky="s", columnspan=3, rowspan=3, pady=140)
+        label[4].grid(row=3, sticky="s", columnspan=3, rowspan=3, pady=140)
 
         return values[3]
 
     elif row3:
 
-        l1.grid(row=3, sticky="s", columnspan=3, rowspan=4, pady=140)
+        label[4].grid(row=3, sticky="s", columnspan=3, rowspan=4, pady=140)
 
         return values[6]
 
@@ -164,19 +170,19 @@ def check_columns():
 
     if column1:
 
-        l2.grid(row=4, sticky="e", rowspan=3, padx=170, columnspan=1)
+        label[5].grid(row=4, sticky="e", rowspan=3, padx=170, columnspan=1)
 
         return values[0]
 
     elif column2:
 
-        l2.grid(row=4, sticky="e", rowspan=3, padx=173, columnspan=2)
+        label[5].grid(row=4, sticky="e", rowspan=3, padx=173, columnspan=2)
 
         return values[1]
 
     elif column3:
 
-        l2.grid(row=4, sticky="e", rowspan=3, padx=173, columnspan=3)
+        label[5].grid(row=4, sticky="e", rowspan=3, padx=173, columnspan=3)
 
         return values[2]
 
@@ -208,19 +214,23 @@ def check_for_winner():
 
     if row_winner:
 
-        l1.config(text="_", width=330, bg="white")
+        label[4].config(text="_", width=330, bg="white")
 
         winner = row_winner
 
     elif column_winner:
 
-        l2.config(text="|", bg="white", width=3, height=116)
+        label[5].config(text="|", bg="white", width=3, height=116)
 
         winner = column_winner
 
     elif diagonal_winner:
 
         winner = diagonal_winner
+
+
+def passs():
+    pass
 
 
 def Turn(Button, Position):
@@ -257,8 +267,8 @@ def Turn(Button, Position):
 
         l.config(text="It's A Tie")
 
-        RESTART.config(state="normal")
-        REMATCH.config(state="normal")
+        button[10].config(state="normal")
+        button[11].config(state="normal")
 
     check_for_winner()
 
@@ -266,186 +276,99 @@ def Turn(Button, Position):
 
         l.config(text=f"{winner} WON ")
 
-        RESTART.config(state="normal")
-        REMATCH.config(state="normal")
+        button[10].config(state="normal")
+        button[11].config(state="normal")
 
-        for i in buttons:
+        for i in range(9):
 
-            i.config(command=passs)
+            button[i].config(command=passs)
 
 
 def set_current_player(Player):
 
     global current_player
 
-    for i in buttons:
+    for i in range(9):
 
-        i.config(state="normal")
+        button[i].config(state="normal", command=lambda i=i: Turn(button[i], i))
 
-    O.config(state="disable"), X.config(state="disable")
+    button[12].config(state="disable")
+    button[13].config(state="disable")
 
     current_player = Player
 
     l.config(text=f"{current_player}'s Turn")
 
-    b.config(command=lambda: Turn(b, 0)), b1.config(
-        command=lambda: Turn(b1, 1)
-    ), b2.config(command=lambda: Turn(b2, 2)), b3.config(
-        command=lambda: Turn(b3, 3)
-    ), b4.config(
-        command=lambda: Turn(b4, 4)
-    ), b5.config(
-        command=lambda: Turn(b5, 5)
-    ), b6.config(
-        command=lambda: Turn(b6, 6)
-    ), b7.config(
-        command=lambda: Turn(b7, 7)
-    ), b8.config(
-        command=lambda: Turn(b8, 8)
+
+for i in ln:
+    sl = Label(root, text=i, fg="white", bg="black", font=("Helvetica", 10, "bold"))
+    label.append(sl)
+
+for i in range(9):
+    btn = Button(
+        root,
+        bg="black",
+        width=2,
+        font=("Helvetica", 30, "bold"),
+        state="disable",
+        bd=30,
     )
+    button.append(btn)
 
+bn = [("EXIT", "REMATCH", "RESTART"), (root.destroy, Rematch, Restart)]
 
-O = Button(
-    root,
-    text="O",
-    bg="black",
-    fg="white",
-    font=("Helvetica", 9, "bold"),
-    bd=15,
-    command=lambda: set_current_player("O"),
-)
+for i in range(3):
+    btn2 = Button(
+        root,
+        text=bn[0][i],
+        bg="black",
+        fg="white",
+        font=("Helvetica", 5, "bold"),
+        bd=15,
+        command=bn[1][i],
+        state="disable",
+    )
+    button.append(btn2)
 
-X = Button(
-    root,
-    text="X",
-    bg="black",
-    fg="white",
-    font=("Helvetica", 9, "bold"),
-    bd=15,
-    command=lambda: set_current_player("X"),
-)
+button[9].config(state="normal")
 
-EXIT = Button(
-    root,
-    text="EXIT",
-    bg="black",
-    fg="white",
-    font=("Helvetica", 5, "bold"),
-    bd=15,
-    command=root.destroy,
-)
-
-REMATCH = Button(
-    root,
-    text="REMATCH",
-    bg="black",
-    fg="white",
-    font=("Helvetica", 5, "bold"),
-    bd=15,
-    command=Rematch,
-    state="disable",
-)
-
-RESTART = Button(
-    root,
-    text="RESTART",
-    bg="black",
-    fg="white",
-    font=("Helvetica", 5, "bold"),
-    bd=15,
-    command=Restart,
-    state="disable",
-)
-
-b = Button(
-    root, bg="black", width=2, font=("Helvetica", 30, "bold"), state="disable", bd=30
-)
-
-b1 = Button(
-    root, bg="black", width=2, font=("Helvetica", 30, "bold"), state="disable", bd=30
-)
-
-b2 = Button(
-    root, bg="black", width=2, font=("Helvetica", 30, "bold"), state="disable", bd=30
-)
-
-b3 = Button(
-    root, bg="black", width=2, font=("Helvetica", 30, "bold"), state="disable", bd=30
-)
-
-b4 = Button(
-    root, bg="black", width=2, font=("Helvetica", 30, "bold"), state="disable", bd=30
-)
-
-b5 = Button(
-    root, bg="black", width=2, font=("Helvetica", 30, "bold"), state="disable", bd=30
-)
-
-b6 = Button(
-    root, bg="black", width=2, font=("Helvetica", 30, "bold"), state="disable", bd=30
-)
-
-b7 = Button(
-    root, bg="black", width=2, font=("Helvetica", 30, "bold"), state="disable", bd=30
-)
-
-b8 = Button(
-    root, bg="black", width=2, font=("Helvetica", 30, "bold"), state="disable", bd=30
-)
-
-
-buttons = [b, b1, b2, b3, b4, b5, b6, b7, b8]
-
+for i in range(2):
+    sl1 = Label(root, font=("Helvetica", 1, "bold"))
+    btn3 = Button(
+        root,
+        text=p[i],
+        bg="black",
+        fg="white",
+        font=("Helvetica", 9, "bold"),
+        bd=15,
+        command=lambda i=i: set_current_player(p[i]),
+    )
+    button.append(btn3)
+    label.append(sl1)
 
 l = Label(root, fg="white", bg="black", font=("Helvetica", 15, "bold"))
 
-l1 = Label(root, font=("Helvetica", 1, "bold"))
 
-l2 = Label(root, font=("Helvetica", 1, "bold"))
-
-l3 = Label(
-    root, text=f"X : {Xscore}", fg="white", bg="black", font=("Helvetica", 10, "bold")
-)
-
-l4 = Label(
-    root, text=f"O : {Oscore}", fg="white", bg="black", font=("Helvetica", 10, "bold")
-)
-
-l5 = Label(
-    root,
-    text=f"TOTAL : {Total}",
-    fg="white",
-    bg="black",
-    font=("Helvetica", 10, "bold"),
-)
-
-l6 = Label(
-    root, text=f"TIE : {Tie}", fg="white", bg="black", font=("Helvetica", 10, "bold")
-)
-
-
-l5.grid(column=1)
-l6.grid(column=1)
+label[0].grid(column=1)
+label[1].grid(column=1)
 l.grid(column=1, pady=70)
-l3.grid(columnspan=2)
-l4.grid(row=3, column=1, columnspan=2)
+label[2].grid(columnspan=2)
+label[3].grid(row=3, column=1, columnspan=2)
+
+for i in range(3):
+    button[i].grid(row=4, column=i)
+for i in range(3, 6):
+    x += 1
+    button[i].grid(row=5, column=x)
+for i in range(6, 9):
+    y += 1
+    button[i].grid(row=6, column=y)
 
 
-b.grid(row=4)
-b1.grid(row=4, column=1)
-b2.grid(row=4, column=2)
-b3.grid(row=5)
-b4.grid(row=5, column=1)
-b5.grid(row=5, column=2)
-b6.grid(row=6)
-b7.grid(row=6, column=1)
-b8.grid(row=6, column=2)
-
-REMATCH.grid(row=8, ipadx=50, pady=50)
-RESTART.grid(row=8, column=2, ipadx=50)
-X.grid(row=10, columnspan=2, ipadx=50)
-O.grid(row=10, column=1, columnspan=2, ipadx=50)
-EXIT.grid(column=1, pady=50, ipadx=50)
-
+button[10].grid(row=8, ipadx=45, pady=50)
+button[11].grid(row=8, column=2, ipadx=50)
+button[12].grid(row=10, columnspan=2, ipadx=50)
+button[13].grid(row=10, column=1, columnspan=2, ipadx=50)
+button[9].grid(column=1, pady=50, ipadx=50)
 
 root.mainloop()
