@@ -1,50 +1,45 @@
 from tkinter import Tk,Label as Z,Button as a
 import random as h
-Y='O'
-X='X'
-W=None
-U='bold'
-T='Helvetica'
-S='white'
-R=''
-M='black'
-L='normal'
-I='disable'
+Y=''
+X='O'
+W='X'
+V=None
+T='bold'
+S='Helvetica'
+R='white'
+L='black'
+K='normal'
+J='disable'
 H=range
 F=' '
-J=Tk()
-J.config(bg=M)
-D=W
-G=W
+I=Tk()
+I.config(bg=L)
+D=V
+G=V
 A=[F]*9
+M=0
 N=0
 O=0
 P=0
-Q=0
-V=[X,Y]
-c=[f"TOTAL : {P}",f"TIE : {Q}",f"X : {N}",f"O : {O}"]
+U=[W,X]
+c=[f"TOTAL : {O}",f"TIE : {P}",f"X : {M}",f"O : {N}"]
 C=[]
 B=[]
 d,e=-1,-1
 def i():
-	global G,D,A,N,O,P,Q,V;L=h.choice(V);P+=1;D=L;K.config(text=D)
-	if F not in A:Q+=1;C[1].config(text=f"TIE : {Q}")
-	if G==X:N+=1;C[2].config(text=f"X : {N}")
-	elif G==Y:O+=1;C[3].config(text=f"O : {O}")
-	for E in H(4,6):C[E].config(text=R,bg=M,width=0,height=0)
-	K.config(text=R);C[0].config(text=f"TOTAL : {P}");G=W;f(D);J=-1
-	for E in A:J+=1;A[J]=F
-	for E in H(9):B[E].config(text=R)
-	B[10].config(state=I);B[11].config(state=I)
+	global G,D,A,M,N,O,P,U;I=h.choice(U);O+=1;D=I;C[0].config(text=f"TOTAL : {O}")
+	if F not in A:P+=1;C[1].config(text=f"TIE : {P}")
+	if G==W:M+=1;C[2].config(text=f"X : {M}")
+	elif G==X:N+=1;C[3].config(text=f"O : {N}")
+	for E in H(4,6):C[E].config(text=Y,bg=L,width=0,height=0);B[E+6].config(state=J)
+	G=V;f(D)
+	for E in H(9):B[E].config(text=Y);A[E]=F
 def j():
-	global G,D,A,N,O,P,Q;P=0;Q=0;N=0;O=0
+	global G,D,A,M,N,O,P;O=0;P=0;M=0;N=0
 	for E in H(4):C[E].config(text=c[E])
-	for E in H(9):B[E].config(text=R,state=I)
-	for E in H(12,14):B[E].config(state=L)
-	for E in H(4,6):C[E].config(text=R,bg=M,width=0,height=0)
-	K.config(text=R);G=W;D=W;J=-1
-	for E in A:J+=1;A[J]=F
-	B[10].config(state=I);B[11].config(state=I)
+	for E in H(9):B[E].config(text=Y,state=J);A[E]=F
+	for E in H(12,14):B[E].config(state=K);C[E-8].config(text=Y,bg=L,width=0,height=0);B[E-2].config(state=J)
+	Q.config(text=Y);G=V;D=V
 def k():
 	B='s';D=A[0]==A[1]==A[2]!=F;E=A[3]==A[4]==A[5]!=F;G=A[6]==A[7]==A[8]!=F
 	if D:C[4].grid(row=3,sticky=B,columnspan=3,rowspan=2,pady=140);return A[0]
@@ -61,38 +56,38 @@ def m():
 	elif C:return A[2]
 def n():
 	global G;A=k();B=l();D=m()
-	if A:C[4].config(text='_',width=330,bg=S);G=A
-	elif B:C[5].config(text='|',bg=S,width=3,height=116);G=B
+	if A:C[4].config(text='_',width=330,bg=R);G=A
+	elif B:C[5].config(text='|',bg=R,width=3,height=116);G=B
 	elif D:G=D
 def b():pass
 def o(Button,Position):
 	E=Position;C=Button;global D
-	if D==X:
-		if A[E]==F:A[E]=D;C.config(command=b,state=I)
-		C.config(text=D,fg='yellow',state=L);D=Y
-	elif D==Y:
-		if A[E]==F:A[E]=D;C.config(command=b,state=I)
-		C.config(text=D,fg='orange',state=L);D=X
-	K.config(text=f"{D}'s Turn")
-	if F not in A:K.config(text="It's A Tie");B[10].config(state=L);B[11].config(state=L)
+	if D==W:
+		if A[E]==F:A[E]=D;C.config(command=b,state=J)
+		C.config(text=D,fg='yellow',state=K);D=X
+	elif D==X:
+		if A[E]==F:A[E]=D;C.config(command=b,state=J)
+		C.config(text=D,fg='orange',state=K);D=W
+	Q.config(text=f"{D}'s Turn")
+	if F not in A:Q.config(text="It's A Tie");B[10].config(state=K);B[11].config(state=K)
 	n()
-	if G==X or G==Y:
-		K.config(text=f"{G} WON ");B[10].config(state=L);B[11].config(state=L)
-		for J in H(9):B[J].config(command=b)
+	if G==W or G==X:
+		Q.config(text=f"{G} WON ");B[10].config(state=K);B[11].config(state=K)
+		for I in H(9):B[I].config(command=b)
 def f(Player):
 	global D
-	for A in H(9):B[A].config(state=L,command=lambda i=A:o(B[i],i))
-	B[12].config(state=I);B[13].config(state=I);D=Player;K.config(text=f"{D}'s Turn")
-for E in c:p=Z(J,text=E,fg=S,bg=M,font=(T,10,U));C.append(p)
-for E in H(9):q=a(J,bg=M,width=2,font=(T,30,U),state=I,bd=30);B.append(q)
-g=[('EXIT','REMATCH','RESTART'),(J.destroy,i,j)]
-for E in H(3):r=a(J,text=g[0][E],bg=M,fg=S,font=(T,5,U),bd=15,command=g[1][E],state=I);B.append(r)
-B[9].config(state=L)
-for E in H(2):s=Z(J,font=(T,1,U));t=a(J,text=V[E],bg=M,fg=S,font=(T,9,U),bd=15,command=lambda i=E:f(V[i]));B.append(t);C.append(s)
-K=Z(J,fg=S,bg=M,font=(T,15,U))
+	for A in H(9):B[A].config(state=K,command=lambda i=A:o(B[i],i))
+	B[12].config(state=J);B[13].config(state=J);D=Player;Q.config(text=f"{D}'s Turn")
+for E in c:p=Z(I,text=E,fg=R,bg=L,font=(S,10,T));C.append(p)
+for E in H(9):q=a(I,bg=L,width=2,font=(S,30,T),state=J,bd=30);B.append(q)
+g=[('EXIT','REMATCH','RESTART'),(I.destroy,i,j)]
+for E in H(3):r=a(I,text=g[0][E],bg=L,fg=R,font=(S,5,T),bd=15,command=g[1][E],state=J);B.append(r)
+B[9].config(state=K)
+for E in H(2):s=Z(I,font=(S,1,T));t=a(I,text=U[E],bg=L,fg=R,font=(S,9,T),bd=15,command=lambda i=E:f(U[i]));B.append(t);C.append(s)
+Q=Z(I,fg=R,bg=L,font=(S,15,T))
 C[0].grid(column=1)
 C[1].grid(column=1)
-K.grid(column=1,pady=70)
+Q.grid(column=1,pady=70)
 C[2].grid(columnspan=2)
 C[3].grid(row=3,column=1,columnspan=2)
 for E in H(3):B[E].grid(row=4,column=E)
@@ -103,4 +98,4 @@ B[11].grid(row=8,column=2,ipadx=50)
 B[12].grid(row=10,columnspan=2,ipadx=50)
 B[13].grid(row=10,column=1,columnspan=2,ipadx=50)
 B[9].grid(column=1,pady=50,ipadx=50)
-J.mainloop()
+I.mainloop()
