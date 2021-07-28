@@ -8,7 +8,7 @@ current_player = None
 
 winner = None
 
-values = [" "]*9
+values = [" "] * 9
 
 Xscore = 0
 
@@ -39,7 +39,7 @@ def Rematch():
 
     current_player = Rp
 
-    l.config(text=current_player)
+    label[0].config(text=f"TOTAL : {Total}")
 
     if " " not in values:
 
@@ -60,31 +60,20 @@ def Rematch():
         label[3].config(text=f"O : {Oscore}")
 
     for i in range(4, 6):
-        
+
         label[i].config(text="", bg="black", width=0, height=0)
 
-    l.config(text="")
-    
-    label[0].config(text=f"TOTAL : {Total}")
+        button[i + 6].config(state="disable")
 
     winner = None
 
     set_current_player(current_player)
 
-    count = -1
-
-    for i in values:
-
-        count += 1
-
-        values[count] = " "
-
     for i in range(9):
 
         button[i].config(text="")
 
-    button[10].config(state="disable")
-    button[11].config(state="disable")
+        values[i] = " "
 
 
 def Restart():
@@ -100,37 +89,28 @@ def Restart():
     Oscore = 0
 
     for i in range(4):
-        
+
         label[i].config(text=ln[i])
 
     for i in range(9):
 
         button[i].config(text="", state="disable")
 
+        values[i] = " "
+
     for i in range(12, 14):
-        
+
         button[i].config(state="normal")
 
-    for i in range(4, 6):
-        
-        label[i].config(text="", bg="black", width=0, height=0)
-        
+        label[i - 8].config(text="", bg="black", width=0, height=0)
+
+        button[i - 2].config(state="disable")
+
     l.config(text="")
 
     winner = None
 
     current_player = None
-
-    count = -1
-
-    for i in values:
-
-        count += 1
-
-        values[count] = " "
-
-    button[10].config(state="disable")
-    button[11].config(state="disable")
 
 
 def check_rows():
