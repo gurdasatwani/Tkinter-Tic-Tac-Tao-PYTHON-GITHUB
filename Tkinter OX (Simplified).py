@@ -8,7 +8,7 @@ current_player = None
 
 winner = None
 
-values = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+values = [" "]*9
 
 Xscore = 0
 
