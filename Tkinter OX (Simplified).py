@@ -28,6 +28,10 @@ button = []
 
 x, y = -1, -1
 
+def cnf(item,s,e,state=None,text=None,co=None,bg=None,width=None,height=None,font=None):
+	
+	for i in range(s,e):
+		item[i].config(state=state,text=text,command=co,bg=bg,width=width,height=height,font=font)
 
 def Rematch():
 
@@ -39,42 +43,35 @@ def Rematch():
 
     current_player = Rp
 
-    label[0].config(text=f"TOTAL : {Total}")
-
     if " " not in values:
 
         Tie += 1
-
-        label[1].config(text=f"TIE : {Tie}")
 
     if winner == "X":
 
         Xscore += 1
 
-        label[2].config(text=f"X : {Xscore}")
-
     elif winner == "O":
 
         Oscore += 1
 
-        label[3].config(text=f"O : {Oscore}")
+    for i,x in zip(range(4),[f"TOTAL : {Total}",f"TIE : {Tie}",f"X : {Xscore}",f"O : {Oscore}"]):
+ 
+     	label[i].config(text=x)
 
-    for i in range(4, 6):
+    cnf(label,4,6,text='',bg='black',width=0,height=0)
 
-        label[i].config(text="", bg="black", width=0, height=0)
-
-        button[i + 6].config(state="disable")
+    cnf(button,10,12,state='disable')
 
     winner = None
 
     set_current_player(current_player)
 
+    cnf(button,0,9,text="")
+
     for i in range(9):
 
-        button[i].config(text="")
-
         values[i] = " "
-
 
 def Restart():
 
@@ -94,24 +91,19 @@ def Restart():
 
     for i in range(9):
 
-        button[i].config(text="", state="disable")
+    	values[i] = " "
 
-        values[i] = " "
+    cnf(label,4,6,text='',bg='black',width=0,height=0)
 
-    for i in range(12, 14):
-
-        button[i].config(state="normal")
-
-        label[i - 8].config(text="", bg="black", width=0, height=0)
-
-        button[i - 2].config(state="disable")
+    cnf(button,0,9,state='disable',text="")
+    cnf(button,12,14,state='normal')
+    cnf(button,10,12,state='disable')
 
     l.config(text="")
 
     winner = None
 
     current_player = None
-
 
 def check_rows():
 
@@ -139,7 +131,6 @@ def check_rows():
 
         return values[6]
 
-
 def check_columns():
 
     column1 = values[0] == values[3] == values[6] != " "
@@ -166,7 +157,6 @@ def check_columns():
 
         return values[2]
 
-
 def check_diagonals():
 
     diagonal1 = values[0] == values[4] == values[8] != " "
@@ -180,7 +170,6 @@ def check_diagonals():
     elif diagonal2:
 
         return values[2]
-
 
 def check_for_winner():
 
@@ -208,10 +197,8 @@ def check_for_winner():
 
         winner = diagonal_winner
 
-
 def passs():
     pass
-
 
 def Turn(Button, Position):
 
@@ -247,8 +234,7 @@ def Turn(Button, Position):
 
         l.config(text="It's A Tie")
 
-        button[10].config(state="normal")
-        button[11].config(state="normal")
+        cnf(button,10,12,state='normal')
 
     check_for_winner()
 
@@ -256,13 +242,9 @@ def Turn(Button, Position):
 
         l.config(text=f"{winner} WON ")
 
-        button[10].config(state="normal")
-        button[11].config(state="normal")
+        cnf(button,10,12,state='normal')
 
-        for i in range(9):
-
-            button[i].config(command=passs)
-
+        cnf(button,0,9,co=passs)
 
 def set_current_player(Player):
 
@@ -270,85 +252,51 @@ def set_current_player(Player):
 
     for i in range(9):
 
-        button[i].config(state="normal", command=lambda i=i: Turn(button[i], i))
-
-    button[12].config(state="disable")
-    button[13].config(state="disable")
+        button[i].config(command=lambda i=i: Turn(button[i], i))
+ 
+    cnf(button,0,9,state='normal')
+    cnf(button,12,14,state='disable')
 
     current_player = Player
 
     l.config(text=f"{current_player}'s Turn")
 
-
 for i in ln:
     sl = Label(root, text=i, fg="white", bg="black", font=("Helvetica", 10, "bold"))
     label.append(sl)
 
-for i in range(9):
-    btn = Button(
-        root,
-        bg="black",
-        width=2,
-        font=("Helvetica", 30, "bold"),
-        state="disable",
-        bd=30,
-    )
-    button.append(btn)
+bn = [(9,10,11,12,13),(root.destroy,Rematch, Restart,lambda:set_current_player(p[0]),lambda:set_current_player(p[1]))]
 
-bn = [("EXIT", "REMATCH", "RESTART"), (root.destroy, Rematch, Restart)]
+for m,k,z,o in zip([['']*9,['EXIT','REMATCH','RESTART',p[0],p[1]]],
+[[2]*9,[0]*5],
+[[30]*9,[5]*5],
+[[30]*9,[15]*5]):
+	for t,w,f,b in zip(m,k,z,o):
+	       btn = Button(root,text=t,bg="black",fg='white',width=w,font=("Helvetica", f, "bold"),state="disable",bd=b)
+	       button.append(btn)
 
-for i in range(3):
-    btn2 = Button(
-        root,
-        text=bn[0][i],
-        bg="black",
-        fg="white",
-        font=("Helvetica", 5, "bold"),
-        bd=15,
-        command=bn[1][i],
-        state="disable",
-    )
-    button.append(btn2)
+for i in range(5):
+	button[bn[0][i]].config(state='normal',command=bn[1][i])
 
-button[9].config(state="normal")
-
+cnf(button,10,12,state='disable')
+cnf(button,12,14,font=("Helvetica",9, "bold"))
 for i in range(2):
     sl1 = Label(root, font=("Helvetica", 1, "bold"))
-    btn3 = Button(
-        root,
-        text=p[i],
-        bg="black",
-        fg="white",
-        font=("Helvetica", 9, "bold"),
-        bd=15,
-        command=lambda i=i: set_current_player(p[i]),
-    )
-    button.append(btn3)
     label.append(sl1)
 
 l = Label(root, fg="white", bg="black", font=("Helvetica", 15, "bold"))
 
 
-label[0].grid(column=1)
-label[1].grid(column=1)
-l.grid(column=1, pady=70)
-label[2].grid(columnspan=2)
-label[3].grid(row=3, column=1, columnspan=2)
+for (r,c,cs) in zip([0,1,3,3],[1,1,0,1],[1,1,2,2]):
+	y+=1
+	label[y].grid(row=r, column=c, columnspan=cs)
+l.grid(row=2,column=1, pady=70)
 
-for i in range(3):
-    button[i].grid(row=4, column=i)
-for i in range(3, 6):
-    x += 1
-    button[i].grid(row=5, column=x)
-for i in range(6, 9):
-    y += 1
-    button[i].grid(row=6, column=y)
+for i in [[4]*3,[5]*3,[6]*3]:
+	for r,c in zip(i,[0,1,2]*3):
+	   x += 1
+	   button[x].grid(row=r, column=c)
 
-
-button[10].grid(row=8, ipadx=45, pady=50)
-button[11].grid(row=8, column=2, ipadx=50)
-button[12].grid(row=10, columnspan=2, ipadx=50)
-button[13].grid(row=10, column=1, columnspan=2, ipadx=50)
-button[9].grid(column=1, pady=50, ipadx=50)
-
+for (n,r,c,cs,ip) in zip([10,11,12,13,9],[8,8,10,10,11],[0,2,0,1,1],[1,1,2,2,1],[45,50,50,50,50]):
+	button[n].grid(row=r,column=c,columnspan=cs, ipadx=ip, pady=50)
 root.mainloop()
